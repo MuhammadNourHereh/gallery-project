@@ -6,13 +6,13 @@ class PhotosMigration
     public static function up()
     {
         global $conn;
-        $query = "CREATE TABLE IF NOT EXISTS photos (
-            id INT PRIMARY KEY,
-            title VARCHAR(255) NOT NULL,
-            `desc` VARCHAR(255) NOT NULL,
-            `url` VARCHAR(255) NULL,
+        $query = "CREATE TABLE IF NOT EXISTS `photos` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `title` VARCHAR(255) NOT NULL,
+            `desc` VARCHAR(255),
+            `url` VARCHAR(255) NOT NULL,
             `owner` VARCHAR(255) NOT NULL,
-            FOREIGN KEY (`owner`) REFERENCES users(email)
+            FOREIGN KEY (`owner`) REFERENCES `users`(`username`)
         )";
         mysqli_query($conn, $query);
         echo "photos table was created succussfully\n";

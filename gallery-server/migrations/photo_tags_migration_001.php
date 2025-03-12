@@ -7,12 +7,12 @@ class PhotoTagMigration
     public static function up()
     {
         global $conn;
-        $query = "CREATE TABLE IF NOT EXISTS photo_tag (
-            photo_id INT NOT NULL,
-            tag_name VARCHAR(255) NOT NULL,
-            PRIMARY KEY (photo_id, tag_name),
-            FOREIGN KEY (photo_id) REFERENCES photos(id),
-            FOREIGN KEY (tag_name) REFERENCES tags(name)
+        $query = "CREATE TABLE IF NOT EXISTS `photo-tag` (
+            `photo_id` INT NOT NULL,
+            `tag_id` INT NOT NULL,
+            PRIMARY KEY (`photo_id`, `tag_id`),
+            FOREIGN KEY (`photo_id`) REFERENCES `photos`(`id`),
+            FOREIGN KEY (`tag_id`) REFERENCES `tags`(`id`)
         )";
         mysqli_query($conn, $query);
         echo "photo_tag table was created succussfully\n";
