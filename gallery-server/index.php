@@ -15,30 +15,30 @@ if ($request == '') {
 }
 
 $apis = [
-    // user apis
-    '/users' => ['controller' => 'UserController', 'method' => 'getAll'],
-    '/login' => ['controller' => 'UserController', 'method' => 'getAll'],
-    '/signup' => ['controller' => 'UserController', 'method' => 'getAll'],
-    '/delete-account' => ['controller' => 'UserController', 'method' => 'getAll'],
-    '/update-account' => ['controller' => 'UserController', 'method' => 'getAll'],
-    
-    // photo apis
-    '/get-photos' => ['controller' => 'PhotoController', 'method' => 'getAll'],
-    '/upload-photo' => ['controller' => 'PhotoController', 'method' => 'getAll'],
-    '/update-photo' => ['controller' => 'PhotoController', 'method' => 'getAll'],
-    '/delete-photo' => ['controller' => 'PhotoController', 'method' => 'getAll'],
+    // user APIs
+    '/users' => ['controller' => 'UserController', 'method' => 'getAllUsers'],
+    '/login' => ['controller' => 'UserController', 'method' => 'login'],
+    '/signup' => ['controller' => 'UserController', 'method' => 'signup'],
+    '/delete-account' => ['controller' => 'UserController', 'method' => 'deleteAccount'],
+    '/update-account' => ['controller' => 'UserController', 'method' => 'updateAccount'],
 
-    // tag apis
-    '/get-tags' => ['controller' => 'PhotoController', 'method' => 'getAll'],
-    '/create-tag' => ['controller' => 'PhotoController', 'method' => 'getAll'],
-    '/update-tag' => ['controller' => 'PhotoController', 'method' => 'getAll'],
-    '/delete-tag' => ['controller' => 'PhotoController', 'method' => 'getAll'],
+    // photo APIs
+    '/get-photos' => ['controller' => 'PhotoController', 'method' => 'getPhotos'],
+    '/upload-photo' => ['controller' => 'PhotoController', 'method' => 'uploadPhoto'],
+    '/update-photo' => ['controller' => 'PhotoController', 'method' => 'updatePhoto'],
+    '/delete-photo' => ['controller' => 'PhotoController', 'method' => 'deletePhoto'],
+
+    // tag APIs
+    '/get-tags' => ['controller' => 'TagController', 'method' => 'getTags'],
+    '/create-tag' => ['controller' => 'TagController', 'method' => 'createTag'],
+    '/update-tag' => ['controller' => 'TagController', 'method' => 'updateTag'],
+    '/delete-tag' => ['controller' => 'TagController', 'method' => 'deleteTag'],
 ];
 
 if (isset($apis[$request])) {
     $controllerName = $apis[$request]['controller'];
     $method = $apis[$request]['method'];
-    require_once "apis/v1/{$controllerName}.php";
+    require_once getPath($controllerName);
 
     $controller = new $controllerName();
     if (method_exists($controller, $method)) {
