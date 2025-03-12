@@ -1,5 +1,5 @@
 <?php
-require_once getPath("TagSkeleton");
+
 class PhotoSkeleton
 {
     public string $id;
