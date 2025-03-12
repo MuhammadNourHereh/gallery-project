@@ -1,18 +1,19 @@
 <?php
-class PhotoController {
-    public function getPhotos() {
+
+class TagController {
+    public function getTags() {
         // TODO: Implement logic
     }
     
-    public function uploadPhoto() {
+    public function createTag() {
         // TODO: Implement logic
     }
     
-    public function updatePhoto() {
+    public function updateTag() {
         // TODO: Implement logic
     }
     
-    public function deletePhoto() {
+    public function deleteTag() {
         // TODO: Implement logic
     }
 }
