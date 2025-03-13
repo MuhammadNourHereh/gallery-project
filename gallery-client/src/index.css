@@ -1,0 +1,23 @@
+* {
+  margin:0;
+  
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page {
+  background-color: slategray;
+  width: 100vw;
+  height: 100vh;
+}
+
+.marign {
+  margin: 5px;
+}
