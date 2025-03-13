@@ -20,9 +20,7 @@ class UserController {
         // TODO: Implement logic
     }
     
-    public function signup() {
-        // get request data
-        $data = json_decode(file_get_contents("php://input"), true);
+    public function signup($data) {
 
         // Validate required fields
         if (!isset($data['username'], $data['password'], $data['firstname'], $data['lastname'])) {
