@@ -53,17 +53,17 @@ class Photo implements PhotoI
     }
 
     // Get all photos
-    public static function getAllPhotos(): array
+    public static function getPhotos($owner): array
     {
         global $conn;
 
-        $query = "SELECT * FROM photos";
+        $query = "SELECT * FROM photos WHERE `owner` = ?";
         $stmt = $conn->prepare($query);
 
-        if (!$stmt) {
+        if (!$stmt)
             return [];
-        }
 
+        $stmt->bind_param("s", $owner);
         $stmt->execute();
         $result = $stmt->get_result();
         $photos = [];

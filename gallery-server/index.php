@@ -29,6 +29,8 @@ $apis = [
 
     // photo APIs
     '/get-photos' => ['controller' => 'PhotoController', 'method' => 'getPhotos', 'allowed_methods' => ['GET']],
+    '/get-photos-by-tag' => ['controller' => 'PhotoController', 'method' => 'getPhotosByTag', 'allowed_methods' => ['GET']],
+    '/get-photo' => ['controller' => 'PhotoController', 'method' => 'getPhoto', 'allowed_methods' => ['GET']],
     '/upload-photo' => ['controller' => 'PhotoController', 'method' => 'uploadPhoto', 'allowed_methods' => ['POST']],
     '/update-photo' => ['controller' => 'PhotoController', 'method' => 'updatePhoto', 'allowed_methods' => ['PUT', 'PATCH']],
     '/delete-photo' => ['controller' => 'PhotoController', 'method' => 'deletePhoto', 'allowed_methods' => ['DELETE']],
