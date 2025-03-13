@@ -96,8 +96,7 @@ class UserController
 
         // get username
         $username = $data['username'];
-        
-        // TODO check if user exits before updating
+
         if (User::deleteUser($username)) {
             http_response_code(SUCCESS); 
             echo json_encode(["message" => "Account deleted successfully."]);
@@ -124,7 +123,6 @@ class UserController
             $data['lastname']
         );
 
-        // TODO check if user exits before updating
         // update user
         if (User::updateUser($user)) {
             http_response_code(SUCCESS);

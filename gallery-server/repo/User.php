@@ -98,6 +98,25 @@ class User implements UserI
     {
         global $conn;
 
+        // First, check if the user exists
+        $query = "SELECT * FROM users WHERE username = ?";
+        $stmt = $conn->prepare($query);
+
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // If user does not exist, return false
+        if ($result->num_rows === 0) {
+            $stmt->close();
+            return false;
+        }
+
+        // now delete the user
         $query = "DELETE FROM users WHERE username = ?";
         $stmt = $conn->prepare($query);
 
@@ -117,6 +136,25 @@ class User implements UserI
     {
         global $conn;
 
+        // First, check if the user exists
+        $query = "SELECT * FROM users WHERE username = ?";
+        $stmt = $conn->prepare($query);
+
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param("s", $user->username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        // If user does not exist, return false
+        if ($result->num_rows === 0) {
+            $stmt->close();
+            return false;
+        }
+
+        // now delete the user
         // Hash the new password for security
         $hashed_password = hash('sha256', $user->password);
 
