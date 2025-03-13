@@ -34,6 +34,7 @@ $apis = [
     '/delete-photo' => ['controller' => 'PhotoController', 'method' => 'deletePhoto', 'allowed_methods' => ['DELETE']],
 
     // tag APIs
+    '/get-tag' => ['controller' => 'TagController', 'method' => 'getTag', 'allowed_methods' => ['GET']],
     '/get-tags' => ['controller' => 'TagController', 'method' => 'getTags', 'allowed_methods' => ['GET']],
     '/create-tag' => ['controller' => 'TagController', 'method' => 'createTag', 'allowed_methods' => ['POST']],
     '/update-tag' => ['controller' => 'TagController', 'method' => 'updateTag', 'allowed_methods' => ['PUT', 'PATCH']],
