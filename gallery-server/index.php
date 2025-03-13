@@ -25,7 +25,7 @@ $apis = [
     '/login' => ['controller' => 'UserController', 'method' => 'login', 'allowed_methods' => ['POST']],
     '/signup' => ['controller' => 'UserController', 'method' => 'signup', 'allowed_methods' => ['POST']],
     '/delete-account' => ['controller' => 'UserController', 'method' => 'deleteAccount', 'allowed_methods' => ['DELETE']],
-    '/update-account' => ['controller' => 'UserController', 'method' => 'updateAccount', 'allowed_methods' => ['PUT', 'PATCH']],
+    '/update-account' => ['controller' => 'UserController', 'method' => 'updateAccount', 'allowed_methods' => ['PUT', 'PATCH', 'POST']],
 
     // photo APIs
     '/get-photos' => ['controller' => 'PhotoController', 'method' => 'getPhotos', 'allowed_methods' => ['GET']],
