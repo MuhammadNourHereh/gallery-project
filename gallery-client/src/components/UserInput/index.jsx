@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.css'
+
 const UserInput = ({ inputName }) => {
     return (
         <div className='flex-column'>

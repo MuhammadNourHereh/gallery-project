@@ -1,0 +1,10 @@
+nav {
+    border: black 1px solid;
+    height: 50px;
+}
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+}
