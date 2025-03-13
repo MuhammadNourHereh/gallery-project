@@ -10,7 +10,9 @@ class TagsMigration
         $query = "CREATE TABLE IF NOT EXISTS `tags` (
             `id` INT AUTO_INCREMENT PRIMARY KEY,
             `name` VARCHAR(255) NOT NULL,
-            `color` INT
+            `color` INT,
+            `owner` VARCHAR(255) NOT NULL,
+            FOREIGN KEY (`owner`) REFERENCES `users`(`username`)
         )";
         mysqli_query($conn, $query);
         echo "tags table was created succussfully\n";
