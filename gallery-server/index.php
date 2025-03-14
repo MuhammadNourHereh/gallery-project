@@ -1,5 +1,12 @@
 <?php
 include_once getPath("responses");
+include_once getPath("cors-headers");
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 // Define your base directory 
 $base_dir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
