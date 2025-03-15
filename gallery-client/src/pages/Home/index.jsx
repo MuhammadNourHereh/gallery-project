@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import PhotoCard from '../../components/PhotoCard'
 import { useNavigate } from "react-router"
@@ -29,11 +29,10 @@ const Home = () => {
     navigate("/login");
   }
 
-
+  const [tags, setTags] = useState([{ "id": 1, "name": "a", color: 0 }]);
+  const [tagsUpdated, setTagsUpdated] = useState(false);
 
   const tagsGen = () => {
-    const [tags, setTags] = useState([{ "id": 1, "name": "a", color: 0 }]);
-
     useEffect(() => {
       const a = async () => {
         try {
@@ -45,10 +44,11 @@ const Home = () => {
         }
       }
       a()
-    }, []);
+    }, [tagsUpdated]);
     const handleTagDelete = id => {
       console.log(id)
       request("delete", "delete-tag", { id });
+      setTagsUpdated(prev => !prev)
     }
     return (
       <>
@@ -70,6 +70,7 @@ const Home = () => {
   const [tagColor, setTagColor] = useState(0)
   const addTag = () => {
     request("post", "create-tag", { "name": tagName, "color": tagColor, "owner": "abc" });
+    setTagsUpdated(prev => !prev)
   }
   const handleSetTagColor = (e) => {
     const hexColor = e.target.value.replace("#", ""); // Remove '#' from color
