@@ -8,10 +8,18 @@ import UserInput from '../../components/UserInput'
 const Home = () => {
 
   const navigate = useNavigate()
+  const [firstName, setFirstName] = useState("firstname")
+  const [lastName, setLastName] = useState("lastname")
+
 
   useEffect(() => {
-    if (localStorage.getItem("user") == null) {
+    const user = localStorage.getItem("user")
+    if (user == null) {
       navigate("/login");
+    } else {
+      const parsedUser = JSON.parse(user);
+      setFirstName(parsedUser.first_name);
+      setLastName(parsedUser.last_name);
     }
   }, [navigate])
 
@@ -64,8 +72,8 @@ const Home = () => {
 
       <nav>
         <div>
-          <p>first name</p>
-          <p>last name</p>
+          <p>{firstName}</p>
+          <p>{lastName}</p>
         </div>
         <div>
           <button onClick={logout}>logout</button>
@@ -88,8 +96,8 @@ const Home = () => {
       </section>
       <section>
 
-        <UserInput inputName="tag" setState={setTagName}/>
-        <input type='color' name='color' onChange={handleSetTagColor}/><br />
+        <UserInput inputName="tag" setState={setTagName} />
+        <input type='color' name='color' onChange={handleSetTagColor} /><br />
         <button onClick={addTag}>add tag</button>
       </section>
     </div>
