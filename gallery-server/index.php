@@ -44,7 +44,7 @@ $apis = [
 
     // tag APIs
     '/get-tag' => ['controller' => 'TagController', 'method' => 'getTag', 'allowed_methods' => ['GET']],
-    '/get-tags' => ['controller' => 'TagController', 'method' => 'getTags', 'allowed_methods' => ['GET']],
+    '/get-tags' => ['controller' => 'TagController', 'method' => 'getTags', 'allowed_methods' => ['GET', 'POST']],
     '/create-tag' => ['controller' => 'TagController', 'method' => 'createTag', 'allowed_methods' => ['POST']],
     '/update-tag' => ['controller' => 'TagController', 'method' => 'updateTag', 'allowed_methods' => ['PUT', 'PATCH']],
     '/delete-tag' => ['controller' => 'TagController', 'method' => 'deleteTag', 'allowed_methods' => ['DELETE']],
