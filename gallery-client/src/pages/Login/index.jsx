@@ -18,6 +18,7 @@ const Login = () => {
     const submit = async () => {
         const res = await request('post', 'login', { "username": username, "password": password })
         localStorage.setItem("user", JSON.stringify(res))
+        navigate("/");
     }
 
     return (

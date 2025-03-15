@@ -1,4 +1,6 @@
 nav {
+    display: flex;
+    gap: 10px;
     border: black 1px solid;
     height: 50px;
 }

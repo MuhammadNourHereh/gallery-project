@@ -13,19 +13,32 @@ const Home = () => {
     }
   }, [navigate])
 
+  const logout = () => {
+    console.log("logout")
+    localStorage.removeItem("user")
+    navigate("/login");
+  }
 
   return (
     <div>
+
       <nav>
-        <p>first name</p>
-        <p>last name</p>
+        <div>
+          <p>first name</p>
+          <p>last name</p>
+        </div>
+        <div>
+          <button onClick={logout}>logout</button>
+        </div>
       </nav>
+
       <section className='photos'>
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
       </section>
+
     </div>
   )
 }
