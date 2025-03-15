@@ -18,15 +18,18 @@ const Login = () => {
     const submit = async () => {
         const res = await request('post', 'login', { "username": username, "password": password })
         localStorage.setItem("user", JSON.stringify(res))
-        navigate("/");
+        navigate("/")
     }
-
+    const handlelogin = () => {
+        navigate("/signup")
+    }
     return (
         <div className='center page'>
             <div className='flex-column'>
                 <UserInput inputName='username' setState={ setUsername } />
                 <UserInput inputName='password' setState={ setPassword } />
                 <button className='marign' onClick={submit}>submit</button>
+                <p>don't have an account yet? <span className='signup' onClick={handlelogin}>Signup</span></p>
             </div>
         </div>
     )
