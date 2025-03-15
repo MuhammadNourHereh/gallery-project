@@ -46,12 +46,20 @@ const Home = () => {
       }
       a()
     }, []);
+    const handleTagDelete = id => {
+      console.log(id)
+      request("delete", "delete-tag", { id });
+    }
     return (
       <>
         {tags.map((v) => (
-          <p key={v.id} style={{ color: `#${v.color.toString(16).padStart(6, '0')}` }}>
-            {v.name}
-          </p>
+          <div key={v.id}>
+            <span style={{ color: `#${v.color.toString(16).padStart(6, '0')}` }}>
+              {v.name}
+            </span>
+            <button onClick={() => handleTagDelete(v.id)}>delete</button>
+            <br />
+          </div>
         ))}
       </>
     );
