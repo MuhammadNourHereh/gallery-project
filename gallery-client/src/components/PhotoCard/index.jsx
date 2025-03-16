@@ -44,6 +44,7 @@ const PhotoCard = ({ id, url, title, desc, handleDeletion }) => {
         const fetchTags = async () => {
             try {
                 const res = await request('get', 'get-attached-tags', null, { photo_id: id })
+                console.log(res)
                 setAttechedTags(res)
             } catch (error) {
                 console.error('Error fetching tags:', error)
