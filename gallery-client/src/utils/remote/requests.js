@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = "http://localhost:3000/gallery-server/"
+export const BASE_URL = "http://localhost:3000/gallery-server/"
 
 export const request = (method, route, data) => {
     const url = `${BASE_URL}${route}`

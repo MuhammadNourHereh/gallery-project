@@ -35,7 +35,7 @@ $apis = [
     '/update-account' => ['controller' => 'UserController', 'method' => 'updateAccount', 'allowed_methods' => ['PUT', 'PATCH']],
 
     // photo APIs
-    '/get-photos' => ['controller' => 'PhotoController', 'method' => 'getPhotos', 'allowed_methods' => ['GET']],
+    '/get-photos' => ['controller' => 'PhotoController', 'method' => 'getPhotos', 'allowed_methods' => ['GET', 'POST']],
     '/get-photos-by-tag' => ['controller' => 'PhotoController', 'method' => 'getPhotosByTag', 'allowed_methods' => ['GET']],
     '/get-photo' => ['controller' => 'PhotoController', 'method' => 'getPhoto', 'allowed_methods' => ['GET']],
     '/upload-photo' => ['controller' => 'PhotoController', 'method' => 'uploadPhoto', 'allowed_methods' => ['POST']],

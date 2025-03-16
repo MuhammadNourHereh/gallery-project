@@ -50,6 +50,7 @@ const Home = () => {
       request("delete", "delete-tag", { id });
       setTagsUpdated(prev => !prev)
     }
+
     return (
       <>
         {tags.map((v) => (
@@ -64,6 +65,35 @@ const Home = () => {
       </>
     );
   };
+
+  // gen photos
+  const [photos, setPhotos] = useState([{ "id": 1, "title": "title", "desc": "desc" }])
+  const [photosUpdated, setPhotosUpdated] = useState(false)
+
+
+  const genPhotos = () => {
+    useEffect(() => {
+      const a = async () => {
+        try {
+          const res = await request("post", "get-photos", { owner: "abc" });
+          console.log(res);
+          setPhotos(res); // Ensure res.data is an array
+        } catch (error) {
+          setPhotos([])
+        }
+      }
+      a()
+    }, [photosUpdated])
+
+    return (
+      <>
+        {photos.map(photo => (
+          <PhotoCard key={photo.id} url={photo.url} title={photo.title} desc={photo.desc} />
+        ))}
+      </>
+    );
+  }
+
 
   // add tag
   const [tagName, setTagName] = useState("")
@@ -90,13 +120,7 @@ const Home = () => {
       </nav>
 
       <section className='photos'>
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
+        {genPhotos()}
       </section>
       <hr />
       <section>

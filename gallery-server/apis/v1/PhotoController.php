@@ -71,7 +71,7 @@ class PhotoController
         $owner = $data['owner'];
         $base64 = $data['base64'];
 
-        $url = varifyAndSave($base64);
+        $url = verifyAndSave($base64);
         // validate base64
         if ($url === false) {
             http_response_code(BAD_REQUEST);
