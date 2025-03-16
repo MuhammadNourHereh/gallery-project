@@ -15,7 +15,8 @@ const TagsList = () => {
     photosUpdated, setPhotosUpdated,
     tags, setTags,
     tagsUpdated, setTagsUpdated,
-    login, logout
+    login, logout,
+    loginRedirectIfNeeded
   } = useContext(AppContext)
 
 
@@ -24,10 +25,7 @@ const TagsList = () => {
   const [tagColor, setTagColor] = useState(0)
 
   useEffect(() => {
-    const user = localStorage.getItem("user")
-    if (user == null) {
-      navigate("/login");
-    }
+    loginRedirectIfNeeded()
   }, [])
 
   // tags gen

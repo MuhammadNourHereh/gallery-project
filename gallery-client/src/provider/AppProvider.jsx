@@ -10,9 +10,9 @@ export function AppProvider({ children }) {
     const navigate = useNavigate()
 
     // User States
-    const [firstName, setFirstName] = useState("firstname")
-    const [lastName, setLastName] = useState("lastname")
-    const [username, setUserName] = useState("username")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [username, setUserName] = useState("")
 
     // Tags State
     const [tags, setTags] = useState([])
@@ -74,7 +74,11 @@ export function AppProvider({ children }) {
         navigate("/login");
     }
 
-
+    const loginRedirectIfNeeded = () => {
+        if (username === "") {
+            navigate("/login")
+        }
+    }
 
     return (
         <AppContext.Provider value={{
@@ -86,7 +90,8 @@ export function AppProvider({ children }) {
             photosUpdated, setPhotosUpdated,
             tags, setTags,
             tagsUpdated, setTagsUpdated,
-            login, logout
+            login, logout,
+            loginRedirectIfNeeded
         }}>
             {children}
         </AppContext.Provider>

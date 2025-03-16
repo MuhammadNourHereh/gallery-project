@@ -17,7 +17,8 @@ const Home = () => {
     photosUpdated, setPhotosUpdated,
     tags, setTags,
     tagsUpdated, setTagsUpdated,
-    login, logout
+    login, logout,
+    loginRedirectIfNeeded,
   } = useContext(AppContext)
 
 
@@ -27,12 +28,8 @@ const Home = () => {
   const [photoFile, setPhotoFile] = useState("")
 
   useEffect(() => {
-    const user = localStorage.getItem("user")
-    if (user == null) {
-      navigate("/login")
-    }
+    loginRedirectIfNeeded()
   }, [])
-
 
   // gen photos
   const genPhotos = () => {
