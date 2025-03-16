@@ -1,5 +1,6 @@
 <?php
 require_once getPath("conn");
+require_once getPath("PhotoI");
 require_once getPath("PhotoSkeleton");
 require_once getPath("TagSkeleton");
 
@@ -24,6 +25,7 @@ class Photo implements PhotoI
             return false;
         }
 
+        $photo->id = $stmt->insert_id;
         $stmt->close();
         return $photo;
     }

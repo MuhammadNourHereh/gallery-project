@@ -11,7 +11,7 @@ function buildPaths($dir, $base)
         }
 
         $fullPath = realpath("$dir/$file");
-
+        
         if (is_dir($fullPath)) {
             $paths = array_merge($paths, buildPaths($fullPath, $base));
         } else {

@@ -1,6 +1,7 @@
 <?php
 require_once getPath("Photo");
 require_once getPath("responses");
+require_once getPath("base64Utils");
 class PhotoController
 {
     public function getPhotos($data)
@@ -24,8 +25,9 @@ class PhotoController
         // exclude owner
         $response = array_map(fn($photo) => [
             "id" => $photo->id,
-            "name" => $photo->name,
-            "color" => $photo->color,
+            "title" => $photo->title,
+            "desc" => $photo->desc,
+            "url" => $photo->url
         ], $photos);
         echo json_encode($response);
     }
@@ -61,7 +63,35 @@ class PhotoController
     }
     public function uploadPhoto($data)
     {
-        // TODO: Implement logic
+        if (empty($data['owner']) || empty($data['title']) || empty($data['base64'])) {
+            http_response_code(BAD_REQUEST);
+            echo json_encode(["message" => "Missing some fields."]);
+            exit();
+        }
+
+        $title = $data['title'];
+        $desc = $data['desc'];
+        $owner = $data['owner'];
+        $base64 = $data['base64'];
+
+        $url = varifyAndSave($base64);
+        // validate base64
+        if ($url === false) {
+            http_response_code(BAD_REQUEST);
+            echo json_encode(["message" => "invalid base64"]);
+            exit();
+        }
+
+        $photoSkeleton = new PhotoSkeleton(
+            0,
+            $title,
+            $desc,
+            $url,
+            $owner
+        );
+
+        $photo = Photo::addPhoto($photoSkeleton);
+
     }
 
     public function updatePhoto($data)
