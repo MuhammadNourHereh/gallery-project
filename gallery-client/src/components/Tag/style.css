@@ -3,4 +3,6 @@
     background: wheat;
     display: inline;
     cursor: pointer;
+
+    border-radius: 5px;
 }

@@ -5,18 +5,28 @@ import { request } from '../../utils/remote/requests'
 
 const BASE_URL = 'http://localhost:3000'
 
-const PhotoCard = ({ id, url, title, desc, handleDeletion, handleAttachTag, handleDetachTag }) => {
+const PhotoCard = ({ id, url, title, desc, handleDeletion, handleAttachTag }) => {
     const [tags, setTags] = useState([])
 
     const genTags = () => {
+        const handleDetachTag = (tagId) => {
+            console.log(tagId);
+            request('delete', 'detach-tag', { "photo_id": id, "tag_id": tagId })
+        };
+
         return (
             <>
-                {tags.map((tag, index) => {
-                    return <Tag key={index} name={tag.name} color={tag.color} />
-                })}
+                {tags.map((tag) => (
+                    <Tag
+                        key={tag.id}
+                        name={tag.name}
+                        color={tag.color}
+                        handleDetachTag={() => handleDetachTag(tag.id)} // Passing tag.id to the handler
+                    />
+                ))}
             </>
-        )
-    }
+        );
+    };
 
     useEffect(() => {
         const fetchTags = async () => {
@@ -41,7 +51,6 @@ const PhotoCard = ({ id, url, title, desc, handleDeletion, handleAttachTag, hand
             <p>{desc}</p>
             <button onClick={handleDeletion}>delete</button>
             <button onClick={handleAttachTag}>attach tag</button>
-            <button onClick={handleDetachTag}>detach tag</button>
         </div>
     )
 }
