@@ -60,6 +60,22 @@ export function AppProvider({ children }) {
 
     useEffect(() => fetchTags, [username, tagsUpdated])
 
+    const login = () => {
+        const user = localStorage.getItem("user")
+        const parsedUser = JSON.parse(user)
+        setFirstName(parsedUser.first_name)
+        setLastName(parsedUser.last_name)
+        setUserName(parsedUser.username)
+
+    }
+    const logout = () => {
+        console.log("logout")
+        localStorage.removeItem("user")
+        navigate("/login");
+    }
+
+
+
     return (
         <AppContext.Provider value={{
             navigate,
@@ -69,7 +85,8 @@ export function AppProvider({ children }) {
             photos, setPhotos,
             photosUpdated, setPhotosUpdated,
             tags, setTags,
-            tagsUpdated, setTagsUpdated
+            tagsUpdated, setTagsUpdated,
+            login, logout
         }}>
             {children}
         </AppContext.Provider>

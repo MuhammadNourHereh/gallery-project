@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './style.css'
 import UserInput from '../../components/UserInput'
-import { useNavigate } from "react-router"
 import { request } from '../../utils/remote/requests'
+import { AppContext } from '../../provider/AppProvider'
 const Login = () => {
 
-    const navigate = useNavigate()
-
+    const { login, navigate } = useContext(AppContext)
     useEffect(() => {
         if (localStorage.getItem("user") != null) {
             navigate("/");
@@ -18,6 +17,7 @@ const Login = () => {
     const submit = async () => {
         const res = await request('post', 'login', { "username": username, "password": password })
         localStorage.setItem("user", JSON.stringify(res))
+        login()
         navigate("/")
     }
     const handlelogin = () => {
@@ -26,8 +26,8 @@ const Login = () => {
     return (
         <div className='center page'>
             <div className='flex-column'>
-                <UserInput inputName='username' setState={ setUsername } />
-                <UserInput inputName='password' setState={ setPassword } />
+                <UserInput inputName='username' setState={setUsername} />
+                <UserInput inputName='password' setState={setPassword} />
                 <button className='marign' onClick={submit}>submit</button>
                 <p>don't have an account yet? <span className='signup' onClick={handlelogin}>Signup</span></p>
             </div>

@@ -14,7 +14,8 @@ const TagsList = () => {
     photos, setPhotos,
     photosUpdated, setPhotosUpdated,
     tags, setTags,
-    tagsUpdated, setTagsUpdated
+    tagsUpdated, setTagsUpdated,
+    login, logout
   } = useContext(AppContext)
 
 
@@ -26,21 +27,8 @@ const TagsList = () => {
     const user = localStorage.getItem("user")
     if (user == null) {
       navigate("/login");
-    } else {
-      const parsedUser = JSON.parse(user);
-      setFirstName(parsedUser.first_name);
-      setLastName(parsedUser.last_name);
-      setUserName(parsedUser.username)
-
-      setTagsUpdated()
     }
-  }, [navigate])
-
-  const logout = () => {
-    console.log("logout")
-    localStorage.removeItem("user")
-    navigate("/login");
-  }
+  }, [])
 
   // tags gen
   const tagsGen = () => {

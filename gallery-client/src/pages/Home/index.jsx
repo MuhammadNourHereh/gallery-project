@@ -16,7 +16,8 @@ const Home = () => {
     photos, setPhotos,
     photosUpdated, setPhotosUpdated,
     tags, setTags,
-    tagsUpdated, setTagsUpdated
+    tagsUpdated, setTagsUpdated,
+    login, logout
   } = useContext(AppContext)
 
 
@@ -29,21 +30,8 @@ const Home = () => {
     const user = localStorage.getItem("user")
     if (user == null) {
       navigate("/login")
-    } else {
-      const parsedUser = JSON.parse(user)
-      setFirstName(parsedUser.first_name)
-      setLastName(parsedUser.last_name)
-      setUserName(parsedUser.username)
-
-      setPhotosUpdated()
     }
-  }, [navigate])
-
-  const logout = () => {
-    console.log("logout")
-    localStorage.removeItem("user")
-    navigate("/login");
-  }
+  }, [])
 
 
   // gen photos
