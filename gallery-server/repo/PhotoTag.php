@@ -1,28 +1,29 @@
 <?php
+require_once getPath("PhotoTagSkeleton");
 
 class PhotoTag {
-    public static function attachTag(int $photo_id, int $tag_id): bool {
+    public static function attachTag(PhotoTagSkeleton $photoTag): bool {
         global $conn;
 
         $query = "INSERT INTO `photo_tag` (photo_id, tag_id) VALUES (?, ?)";
         $stmt = $conn->prepare($query);
         if (!$stmt) return false;
 
-        $stmt->bind_param("ii", $photo_id, $tag_id);
+        $stmt->bind_param("ii", $photoTag->photo_id, $photoTag->tag_id);
         $result = $stmt->execute();
         $stmt->close();
 
         return $result;
     }
 
-    public static function detachTag(int $photo_id, int $tag_id): bool {
+    public static function detachTag(PhotoTagSkeleton $photoTag): bool {
         global $conn;
 
         $query = "DELETE FROM `photo_tag` WHERE photo_id = ? AND tag_id = ?";
         $stmt = $conn->prepare($query);
         if (!$stmt) return false;
 
-        $stmt->bind_param("ii", $photo_id, $tag_id);
+        $stmt->bind_param("ii", $photoTag->photo_id, $photoTag->tag_id);
         $result = $stmt->execute();
         $stmt->close();
 
