@@ -48,6 +48,12 @@ $apis = [
     '/create-tag' => ['controller' => 'TagController', 'method' => 'createTag', 'allowed_methods' => ['POST']],
     '/update-tag' => ['controller' => 'TagController', 'method' => 'updateTag', 'allowed_methods' => ['PUT', 'PATCH']],
     '/delete-tag' => ['controller' => 'TagController', 'method' => 'deleteTag', 'allowed_methods' => ['DELETE']],
+
+    // photo-tag APIs
+    '/get-attached-tags' => ['controller' => 'PhotoTagController', 'method' => 'getAttachedTags', 'allowed_methods' => ['GET']],
+    '/attach-tag' => ['controller' => 'PhotoTagController', 'method' => 'attachTag', 'allowed_methods' => ['POST']],
+    '/detach-tag' => ['controller' => 'PhotoTagController', 'method' => 'detachTag', 'allowed_methods' => ['DELETE']],
+
 ];
 
 
