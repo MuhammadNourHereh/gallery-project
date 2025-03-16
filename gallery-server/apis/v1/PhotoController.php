@@ -139,13 +139,25 @@ class PhotoController
             exit();
         }
 
+        $photo = Photo::getPhoto($id);
+        if (!$photo) {
+            http_response_code(NOT_FOUND);
+            echo json_encode(["msg" => "photo doesn't exists"]);
+            exit();
+        }
+
         $res = Photo::deletePhoto($id);
 
-        if($res) {
-            echo json_encode(["msg" => "photo has been deleted"]);
+        $filePath = __DIR__ . '/../../..' . $photo->url;
+        if (file_exists($filePath)) {
+            unlink($filePath); // Delete the file from the server
         }
-        else {
-            echo json_encode(["msg" => "photo doesn't exists"]);
+
+
+        if ($res) {
+            echo json_encode(["msg" => "photo has been deleted"]);
+        } else {
+            echo json_encode(["msg" => "coudn't delete"]);
         }
     }
 }
