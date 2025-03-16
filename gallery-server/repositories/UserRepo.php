@@ -1,11 +1,11 @@
 <?php
 require_once getPath("conn");
-require_once getPath("UserSkeleton");
+require_once getPath("UserModel");
 require_once getPath("UserI");
 
-class User implements UserI
+class UserRepo implements UserI
 {
-    public static function addUser(UserSkeleton $user): UserSkeleton|false
+    public static function addUser(UserModel $user): UserModel|false
     {
         global $conn;
 
@@ -34,7 +34,7 @@ class User implements UserI
         return $user;
     }
 
-    public static function getUser(string $username, string $password): ?UserSkeleton
+    public static function getUser(string $username, string $password): ?UserModel
     {
         global $conn;
 
@@ -54,7 +54,7 @@ class User implements UserI
 
             // Verify the password
             if (hash('sha256', $password) == $row['password']) {
-                return new UserSkeleton(
+                return new UserModel(
                     $row['username'],
                     $row['password'],
                     $row['firstname'],
@@ -82,7 +82,7 @@ class User implements UserI
         $users = [];
 
         while ($row = $result->fetch_assoc()) {
-            $users[] = new UserSkeleton(
+            $users[] = new UserModel(
                 $row['username'],
                 $row['password'],
                 $row['firstname'],
@@ -132,7 +132,7 @@ class User implements UserI
         return $result;
     }
 
-    public static function updateUser(UserSkeleton $user): bool
+    public static function updateUser(UserModel $user): bool
     {
         global $conn;
 

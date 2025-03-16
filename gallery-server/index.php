@@ -1,6 +1,6 @@
 <?php
 include_once getPath("responses");
-include_once getPath("cors-headers");
+include_once getPath("corsHeaders");
 include_once getPath("routes");
 
 // Handle preflight requests

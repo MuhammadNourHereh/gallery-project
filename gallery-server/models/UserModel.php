@@ -1,6 +1,6 @@
 <?php
 
-class UserSkeleton
+class UserModel
 {
     public string $username;
     public string $password;

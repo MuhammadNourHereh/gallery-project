@@ -1,11 +1,11 @@
 <?php
 require_once getPath("conn");
 require_once getPath("TagI");
-require_once getPath("TagSkeleton");
-class Tag implements TagI
+require_once getPath("TagModel");
+class TagRepo implements TagI
 {
     // Add a new tag
-    public static function addTag(TagSkeleton $tag): TagSkeleton|false
+    public static function addTag(TagModel $tag): TagModel|false
     {
         global $conn;
 
@@ -27,7 +27,7 @@ class Tag implements TagI
     }
 
     // Get a tag by its ID
-    public static function getTag(int $id): ?TagSkeleton
+    public static function getTag(int $id): ?TagModel
     {
         global $conn;
 
@@ -42,7 +42,7 @@ class Tag implements TagI
 
         if ($row = $result->fetch_assoc()) {
             $stmt->close();
-            return new TagSkeleton($row['id'], $row['name'], $row['color'], $row['owner']);
+            return new TagModel($row['id'], $row['name'], $row['color'], $row['owner']);
         }
 
         $stmt->close();
@@ -65,7 +65,7 @@ class Tag implements TagI
         $tags = [];
 
         while ($row = $result->fetch_assoc()) {
-            $tags[] = new TagSkeleton($row['id'], $row['name'], $row['color'], $row['owner']);
+            $tags[] = new TagModel($row['id'], $row['name'], $row['color'], $row['owner']);
         }
 
         $stmt->close();
@@ -90,7 +90,7 @@ class Tag implements TagI
     }
 
     // Update a tag
-    public static function updateTag(TagSkeleton $tag): bool
+    public static function updateTag(TagModel $tag): bool
     {
         global $conn;
 

@@ -1,6 +1,6 @@
 <?php
 
-class TagSkeleton
+class TagModel
 {
 
     public int $id;

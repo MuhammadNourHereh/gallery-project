@@ -1,5 +1,5 @@
 <?php
-require_once getPath("Tag");
+require_once getPath("TagRepo");
 require_once getPath("responses");
 
 class TagController
@@ -15,7 +15,7 @@ class TagController
 
         $id = $data['id'];
 
-        $tag = Tag::getTag($id);
+        $tag = TagRepo::getTag($id);
         if (!$tag) {
             http_response_code(NOT_FOUND);
             echo json_encode(["message" => "tag is not found"]);
@@ -38,7 +38,7 @@ class TagController
         }
 
         $owner = $data['owner'];
-        $tags = Tag::getTags($owner);
+        $tags = TagRepo::getTags($owner);
 
         if (empty($tags)) {
             http_response_code(NO_CONTENT);
@@ -70,11 +70,11 @@ class TagController
         $owner = trim($data['owner']);
         $color = (int) $data['color'];
 
-        // Create TagSkeleton object
-        $tag = new TagSkeleton(0, $name, $color, $owner);
+        // Create TagModel object
+        $tag = new TagModel(0, $name, $color, $owner);
 
         // Insert tag into database
-        $insertedTag = Tag::addTag($tag);
+        $insertedTag = TagRepo::addTag($tag);
 
         if (!$insertedTag) {
             http_response_code(INTERNAL_SERVER_ERROR);
@@ -105,11 +105,11 @@ class TagController
         $id = (int) $data['id'];
         $color = (int) $data['color'];
 
-        // Create TagSkeleton object
-        $tag = new TagSkeleton($id, $name, $color, "");
+        // Create TagModel object
+        $tag = new TagModel($id, $name, $color, "");
 
         // Insert tag into database
-        $insertedTag = Tag::updateTag($tag);
+        $insertedTag = TagRepo::updateTag($tag);
 
         if (!$insertedTag) {
             http_response_code(INTERNAL_SERVER_ERROR);
@@ -135,7 +135,7 @@ class TagController
 
         $id = $data['id'];
 
-        $tag = Tag::deleteTag($id);
+        $tag = TagRepo::deleteTag($id);
         if (!$tag) {
             http_response_code(NOT_FOUND);
             echo json_encode(["message" => "tag is not found"]);

@@ -1,12 +1,12 @@
 <?php
-require_once getPath("User");
+require_once getPath("UserRepo");
 require_once getPath("responses");
 
 class UserController
 {
     public function getAllUsers()
     {
-        $users = User::getAllUsers();
+        $users = UserRepo::getAllUsers();
 
         if (empty($users)) {
             http_response_code(NO_CONTENT);
@@ -31,7 +31,7 @@ class UserController
         $username = $data['username'];
         $password = $data['password'];
 
-        $user = User::getUser($username, $password);
+        $user = UserRepo::getUser($username, $password);
         if (!$user) {
             http_response_code(FORBIDDEN);
             echo json_encode(["message" => "user doesn't exists or wrong password."]);
@@ -56,8 +56,8 @@ class UserController
             exit();
         }
 
-        // Create UserSkeleton object
-        $user = new UserSkeleton(
+        // Create UserModel object
+        $user = new UserModel(
             $data['username'],
             $data['password'],
             $data['firstname'],
@@ -65,14 +65,14 @@ class UserController
         );
 
         // Check if user already exists
-        if (User::getUser($user->username, $user->password)) {
+        if (UserRepo::getUser($user->username, $user->password)) {
             http_response_code(CONFLICT);
             echo json_encode(["message" => "Username already taken."]);
             exit();
         }
 
         // Attempt to add the user
-        $newUser = User::addUser($user);
+        $newUser = UserRepo::addUser($user);
         if (!$newUser) {
             http_response_code(INTERNAL_SERVER_ERROR);
             echo json_encode(["message" => "Failed to create user."]);
@@ -97,7 +97,7 @@ class UserController
         // get username
         $username = $data['username'];
 
-        if (User::deleteUser($username)) {
+        if (UserRepo::deleteUser($username)) {
             http_response_code(SUCCESS); 
             echo json_encode(["message" => "Account deleted successfully."]);
         } else {
@@ -115,8 +115,8 @@ class UserController
             exit();
         }
 
-        // Create UserSkeleton object
-        $user = new UserSkeleton(
+        // Create UserModel object
+        $user = new UserModel(
             $data['username'],
             $data['password'],
             $data['firstname'],
@@ -124,7 +124,7 @@ class UserController
         );
 
         // update user
-        if (User::updateUser($user)) {
+        if (UserRepo::updateUser($user)) {
             http_response_code(SUCCESS);
             echo json_encode(["message" => "Account updated successfully."]);
         } else {

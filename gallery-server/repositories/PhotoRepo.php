@@ -1,13 +1,13 @@
 <?php
 require_once getPath("conn");
 require_once getPath("PhotoI");
-require_once getPath("PhotoSkeleton");
-require_once getPath("TagSkeleton");
+require_once getPath("PhotoModel");
+require_once getPath("TagModel");
 
-class Photo implements PhotoI
+class PhotoRepo implements PhotoI
 {
     // Add a new photo
-    public static function addPhoto(PhotoSkeleton $photo): PhotoSkeleton|false
+    public static function addPhoto(PhotoModel $photo): PhotoModel|false
     {
         global $conn;
 
@@ -31,7 +31,7 @@ class Photo implements PhotoI
     }
 
     // Get a photo by its ID
-    public static function getPhoto(int $id): ?PhotoSkeleton
+    public static function getPhoto(int $id): ?PhotoModel
     {
         global $conn;
 
@@ -48,7 +48,7 @@ class Photo implements PhotoI
 
         if ($row = $result->fetch_assoc()) {
             $stmt->close();
-            return new PhotoSkeleton($row['id'], $row['title'], $row['desc'], $row['url'], $row['owner']);
+            return new PhotoModel($row['id'], $row['title'], $row['desc'], $row['url'], $row['owner']);
         }
 
         return null;
@@ -71,7 +71,7 @@ class Photo implements PhotoI
         $photos = [];
 
         while ($row = $result->fetch_assoc()) {
-            $photos[] = new PhotoSkeleton($row['id'], $row['title'], $row['desc'], $row['url'], $row['owner']);
+            $photos[] = new PhotoModel($row['id'], $row['title'], $row['desc'], $row['url'], $row['owner']);
         }
 
         $stmt->close();
@@ -99,7 +99,7 @@ class Photo implements PhotoI
     }
 
     // Update a photo
-    public static function updatePhoto(PhotoSkeleton $photo): bool
+    public static function updatePhoto(PhotoModel $photo): bool
     {
         global $conn;
 

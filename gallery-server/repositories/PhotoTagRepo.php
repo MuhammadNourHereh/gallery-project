@@ -1,10 +1,10 @@
 <?php
 require_once getPath("conn");
-require_once getPath("PhotoTagSkeleton");
+require_once getPath("PhotoTagModel");
 require_once getPath("PhotoTagI");
 
-class PhotoTag implements PhotoTagI{
-    public static function attachTag(PhotoTagSkeleton $photoTag): bool {
+class PhotoTagRepo implements PhotoTagI{
+    public static function attachTag(PhotoTagModel $photoTag): bool {
         global $conn;
 
         $query = "INSERT INTO `photo_tag` (photo_id, tag_id) VALUES (?, ?)";
@@ -18,7 +18,7 @@ class PhotoTag implements PhotoTagI{
         return $result;
     }
 
-    public static function detachTag(PhotoTagSkeleton $photoTag): bool {
+    public static function detachTag(PhotoTagModel $photoTag): bool {
         global $conn;
 
         $query = "DELETE FROM `photo_tag` WHERE photo_id = ? AND tag_id = ?";

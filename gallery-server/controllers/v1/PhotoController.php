@@ -1,5 +1,5 @@
 <?php
-require_once getPath("Photo");
+require_once getPath("PhotoRepo");
 require_once getPath("responses");
 require_once getPath("base64Utils");
 class PhotoController
@@ -13,7 +13,7 @@ class PhotoController
         }
 
         $owner = $data['owner'];
-        $photos = photo::getPhotos($owner);
+        $photos = PhotoRepo::getPhotos($owner);
 
         if (empty($photos)) {
             http_response_code(NO_CONTENT);
@@ -43,7 +43,7 @@ class PhotoController
 
         $id = $data['id'];
 
-        $photo = Photo::getPhoto($id);
+        $photo = PhotoRepo::getPhoto($id);
         if (!$photo) {
             http_response_code(NOT_FOUND);
             echo json_encode(["message" => "photo is not found"]);
@@ -79,7 +79,7 @@ class PhotoController
             exit();
         }
 
-        $photoSkeleton = new PhotoSkeleton(
+        $photoModel = new PhotoModel(
             0,
             $title,
             $desc,
@@ -87,7 +87,7 @@ class PhotoController
             $owner
         );
 
-        $photo = Photo::addPhoto($photoSkeleton);
+        $photo = PhotoRepo::addPhoto($photoModel);
 
         http_response_code(CREATED);
         echo json_encode([
@@ -113,7 +113,7 @@ class PhotoController
 
 
 
-        $skeleton = new PhotoSkeleton(
+        $Model = new PhotoModel(
             $id,
             $title,
             $desc,
@@ -121,7 +121,7 @@ class PhotoController
             ""
         );
 
-        $photo = Photo::updatePhoto($skeleton);
+        $photo = PhotoRepo::updatePhoto($Model);
 
 
         http_response_code(CREATED);
@@ -139,14 +139,14 @@ class PhotoController
             exit();
         }
 
-        $photo = Photo::getPhoto($id);
+        $photo = PhotoRepo::getPhoto($id);
         if (!$photo) {
             http_response_code(NOT_FOUND);
             echo json_encode(["msg" => "photo doesn't exists"]);
             exit();
         }
 
-        $res = Photo::deletePhoto($id);
+        $res = PhotoRepo::deletePhoto($id);
 
         $filePath = __DIR__ . '/../../..' . $photo->url;
         if (file_exists($filePath)) {

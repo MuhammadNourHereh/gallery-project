@@ -1,5 +1,5 @@
 <?php
-class PhotoTagSkeleton
+class PhotoTagModel
 {
     public int $photo_id;
     public int $tag_id;

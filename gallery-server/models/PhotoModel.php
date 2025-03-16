@@ -1,6 +1,6 @@
 <?php
 
-class PhotoSkeleton
+class PhotoModel
 {
     public string $id;
     public string $title;

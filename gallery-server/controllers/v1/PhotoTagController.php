@@ -1,5 +1,5 @@
 <?php
-require_once getPath("PhotoTag");
+require_once getPath("PhotoTagRepo");
 require_once getPath("responses");
 class PhotoTagController {
 
@@ -15,11 +15,11 @@ public function attachTag(): void {
         return;
     }
 
-    // Create PhotoTagSkeleton object
-    $photoTagSkeleton = new PhotoTagSkeleton($data->photo_id, $data->tag_id);
+    // Create PhotoTagModel object
+    $photoTagModel = new PhotoTagModel($data->photo_id, $data->tag_id);
 
     // Call the PhotoTag class to attach the tag
-    if (PhotoTag::attachTag($photoTagSkeleton)) {
+    if (PhotoTagRepo::attachTag($photoTagModel)) {
         http_response_code(CREATED); // Created
         echo json_encode(["message" => "Tag attached successfully"]);
     } else {
@@ -40,11 +40,11 @@ public function detachTag(): void {
         return;
     }
 
-    // Create PhotoTagSkeleton object
-    $photoTagSkeleton = new PhotoTagSkeleton($data->photo_id, $data->tag_id);
+    // Create PhotoTagModel object
+    $photoTagModel = new PhotoTagModel($data->photo_id, $data->tag_id);
 
     // Call the PhotoTag class to detach the tag
-    if (PhotoTag::detachTag($photoTagSkeleton)) {
+    if (PhotoTagRepo::detachTag($photoTagModel)) {
         http_response_code(NO_CONTENT); // No content
         echo json_encode(["message" => "Tag detached successfully"]);
     } else {
@@ -65,7 +65,7 @@ public function getAttachedTags(): void {
     $photo_id = $_GET['photo_id'];
 
     // Call the PhotoTag class to get the attached tags
-    $tags = PhotoTag::getAttachedTags($photo_id);
+    $tags = PhotoTagRepo::getAttachedTags($photo_id);
 
     if (!empty($tags)) {
         http_response_code(SUCCESS); // OK
