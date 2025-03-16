@@ -85,7 +85,8 @@ const Home = () => {
               url={photo.url}
               title={photo.title}
               desc={photo.desc}
-              handleDeletion={() => handlePhotoDeletion(photo.id)} />
+              handleDeletion={() => handlePhotoDeletion(photo.id)}
+              tags={tags} />
           ))}
         </>
       );

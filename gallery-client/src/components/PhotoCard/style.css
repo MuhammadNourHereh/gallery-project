@@ -23,3 +23,7 @@ img {
     font-size: 0.9em;
     padding-left: 0.2em;
 }
+
+li {
+    cursor: pointer;
+}
