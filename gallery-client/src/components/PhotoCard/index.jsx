@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './style.css'
 import Tag from '../Tag'
 import { request } from '../../utils/remote/requests'
+import { AppContext } from '../../provider/AppProvider'
 
 const BASE_URL = 'http://localhost:3000'
 
-const PhotoCard = ({ id, url, title, desc, handleDeletion, tags }) => {
+const PhotoCard = ({ id, url, title, desc, handleDeletion }) => {
     const [attachedTags, setAttechedTags] = useState([])
     const [attachedTagsUpdated, setAttechedTagsUpdated] = useState(false);
+    const { tags } = useContext(AppContext)
     const genTags = () => {
         const handleDetachTag = async (tagId) => {
             console.log(tagId);

@@ -29,6 +29,7 @@ const Home = () => {
 
   useEffect(() => {
     loginRedirectIfNeeded()
+    setPhotosUpdated()
   }, [])
 
   // gen photos
@@ -44,8 +45,7 @@ const Home = () => {
               url={photo.url}
               title={photo.title}
               desc={photo.desc}
-              handleDeletion={() => handlePhotoDeletion(photo.id)}
-              tags={tags} />
+              handleDeletion={() => handlePhotoDeletion(photo.id)} />
           ))}
         </>
       );
@@ -87,6 +87,7 @@ const Home = () => {
         </div>
         <div>
           <button onClick={logout}>logout</button>
+          <button onClick={() => { navigate('/tagslist') }}>tagslists</button>
         </div>
       </nav>
 

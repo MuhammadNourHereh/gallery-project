@@ -26,6 +26,7 @@ const TagsList = () => {
 
   useEffect(() => {
     loginRedirectIfNeeded()
+    setTagsUpdated()
   }, [])
 
   // tags gen
@@ -68,6 +69,7 @@ const TagsList = () => {
         </div>
         <div>
           <button onClick={logout}>logout</button>
+          <button onClick={() => { navigate('/') }}>home</button>
         </div>
       </nav>
       <section>
