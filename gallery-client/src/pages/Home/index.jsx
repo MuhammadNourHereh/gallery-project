@@ -74,13 +74,14 @@ const Home = () => {
     }, [photosUpdated])
 
 
-    if (photos.length === 0) 
+    if (photos.length === 0)
       return (<p>no images to show</p>)
     else
       return (
         <>
           {photos.map(photo => (
             <PhotoCard key={photo.id}
+              id={photo.id}
               url={photo.url}
               title={photo.title}
               desc={photo.desc}
