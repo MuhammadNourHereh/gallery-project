@@ -3,21 +3,30 @@ import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import TagsList from "./pages/TagsList";
+import { AppProvider } from "./provider/AppProvider";
+
+
+
 
 function App() {
-  
+
   return (
     <BrowserRouter>
-      {/* <nav>This is my navbar</nav> */}
+      <AppProvider>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* <nav>This is my navbar</nav> */}
 
-        <Route path="/*" element={<h1>Not Found</h1>} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/tagslist" element={<TagsList />} />
+          <Route path="/*" element={<h1>Not Found</h1>} />
+        </Routes>
+
+      </AppProvider>
     </BrowserRouter>
   )
 }
