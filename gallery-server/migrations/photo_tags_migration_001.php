@@ -7,7 +7,7 @@ class PhotoTagMigration
     public static function up()
     {
         global $conn;
-        $query = "CREATE TABLE IF NOT EXISTS `photo-tag` (
+        $query = "CREATE TABLE IF NOT EXISTS `photo_tag` (
             `photo_id` INT NOT NULL,
             `tag_id` INT NOT NULL,
             PRIMARY KEY (`photo_id`, `tag_id`),
