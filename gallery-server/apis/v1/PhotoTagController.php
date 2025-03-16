@@ -71,7 +71,7 @@ public function getAttachedTags(): void {
         http_response_code(SUCCESS); // OK
         echo json_encode($tags);
     } else {
-        http_response_code(NOT_FOUND); // Not found
+        http_response_code(NO_CONTENT); // Not found
         echo json_encode(["message" => "No tags found for the specified photo"]);
     }
 }

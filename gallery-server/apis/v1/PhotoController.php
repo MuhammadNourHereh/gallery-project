@@ -16,7 +16,7 @@ class PhotoController
         $photos = photo::getPhotos($owner);
 
         if (empty($photos)) {
-            http_response_code(NOT_FOUND);
+            http_response_code(NO_CONTENT);
             echo json_encode(["message" => "No photos found for this owner."]);
             exit();
         }

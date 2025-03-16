@@ -41,7 +41,7 @@ class TagController
         $tags = Tag::getTags($owner);
 
         if (empty($tags)) {
-            http_response_code(NOT_FOUND);
+            http_response_code(NO_CONTENT);
             echo json_encode(["message" => "No tags found for this owner."]);
             exit();
         }
