@@ -4,13 +4,34 @@ import PhotoCard from '../../components/PhotoCard'
 import { useNavigate } from "react-router"
 import { request } from '../../utils/remote/requests'
 import UserInput from '../../components/UserInput'
+import { fileToBase64 } from '../../utils/base64Utils'
 
 const Home = () => {
 
+  // navigate
   const navigate = useNavigate()
+
+  // user
   const [firstName, setFirstName] = useState("firstname")
   const [lastName, setLastName] = useState("lastname")
+  const [username, setUserName] = useState("username")
 
+  // photos
+  const [photos, setPhotos] = useState([])
+  const [photosUpdated, setPhotosUpdated] = useState(false)
+
+  // tags
+  const [tags, setTags] = useState([{ "id": 1, "name": "a", color: 0 }]);
+  const [tagsUpdated, setTagsUpdated] = useState(false);
+
+  // tag form
+  const [tagName, setTagName] = useState("")
+  const [tagColor, setTagColor] = useState(0)
+
+  // photo form
+  const [photoTitle, setPhotoTitle] = useState("")
+  const [photoDesc, setPhotoDesc] = useState("")
+  const [photoFile, setPhotoFile] = useState("")
 
   useEffect(() => {
     const user = localStorage.getItem("user")
@@ -20,6 +41,10 @@ const Home = () => {
       const parsedUser = JSON.parse(user);
       setFirstName(parsedUser.first_name);
       setLastName(parsedUser.last_name);
+      setUserName(parsedUser.username)
+
+      setTagsUpdated(prev => !prev)
+      setPhotosUpdated(prev => !prev)
     }
   }, [navigate])
 
@@ -29,14 +54,13 @@ const Home = () => {
     navigate("/login");
   }
 
-  const [tags, setTags] = useState([{ "id": 1, "name": "a", color: 0 }]);
-  const [tagsUpdated, setTagsUpdated] = useState(false);
+
 
   const tagsGen = () => {
     useEffect(() => {
       const a = async () => {
         try {
-          const res = await request("post", "get-tags", { owner: "abc" });
+          const res = await request("post", "get-tags", { owner: username });
           console.log(res);
           setTags(res); // Ensure res.data is an array
         } catch (error) {
@@ -67,15 +91,14 @@ const Home = () => {
   };
 
   // gen photos
-  const [photos, setPhotos] = useState([{ "id": 1, "title": "title", "desc": "desc" }])
-  const [photosUpdated, setPhotosUpdated] = useState(false)
+
 
 
   const genPhotos = () => {
     useEffect(() => {
       const a = async () => {
         try {
-          const res = await request("post", "get-photos", { owner: "abc" });
+          const res = await request("post", "get-photos", { owner: username });
           console.log(res);
           setPhotos(res); // Ensure res.data is an array
         } catch (error) {
@@ -96,15 +119,38 @@ const Home = () => {
 
 
   // add tag
-  const [tagName, setTagName] = useState("")
-  const [tagColor, setTagColor] = useState(0)
   const addTag = () => {
-    request("post", "create-tag", { "name": tagName, "color": tagColor, "owner": "abc" });
+    request("post", "create-tag", { "name": tagName, "color": tagColor, "owner": username });
     setTagsUpdated(prev => !prev)
   }
   const handleSetTagColor = (e) => {
     const hexColor = e.target.value.replace("#", ""); // Remove '#' from color
     setTagColor(parseInt(hexColor, 16)); // Convert hex to decimal
+  }
+
+
+
+
+  // add photo
+
+
+
+  const uploadPhoto = async () => {
+
+    const base64 = await fileToBase64(photoFile)
+    request("post", "upload-photo", { "title": photoTitle, "desc": photoDesc, "base64": base64, "owner": username });
+    setPhotosUpdated(prev => !prev)
+  }
+
+  const handleSetPhotoFile = e => {
+    const file = e.target.files[0]; // Get the selected file
+
+    if (!file) {
+      console.error("No file selected");
+      return; // Exit if no file is selected
+    }
+    console.log(file)
+    setPhotoFile(file)
   }
   return (
     <div>
@@ -123,6 +169,13 @@ const Home = () => {
         {genPhotos()}
       </section>
       <hr />
+      <section>
+        <UserInput inputName="name" setState={setPhotoTitle} />
+        <UserInput inputName="desc" setState={setPhotoDesc} />
+        <input type='file' onChange={handleSetPhotoFile} /><br />
+        <button onClick={uploadPhoto}>upload</button>
+        <hr /><br />
+      </section>
       <section>
         {tagsGen()}
         <hr />
