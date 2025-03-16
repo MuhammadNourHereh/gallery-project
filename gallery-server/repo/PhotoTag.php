@@ -1,7 +1,9 @@
 <?php
+require_once getPath("conn");
 require_once getPath("PhotoTagSkeleton");
+require_once getPath("PhotoTagI");
 
-class PhotoTag {
+class PhotoTag implements PhotoTagI{
     public static function attachTag(PhotoTagSkeleton $photoTag): bool {
         global $conn;
 
