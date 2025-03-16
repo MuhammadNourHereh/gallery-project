@@ -31,10 +31,7 @@ class PhotoController
         ], $photos);
         echo json_encode($response);
     }
-    public function getPhotosByphoto($data)
-    {
-        // TODO: Implement logic
-    }
+
     public function getPhoto($data)
     {
         // Validate required fields
@@ -92,15 +89,63 @@ class PhotoController
 
         $photo = Photo::addPhoto($photoSkeleton);
 
+        http_response_code(CREATED);
+        echo json_encode([
+            "id" => $photo->id,
+            "title" => $photo->title,
+            "desc" => $photo->desc,
+            "url" => $photo->url
+        ]);
     }
 
     public function updatePhoto($data)
     {
-        // TODO: Implement logic
+        if (empty($data['id']) || empty($data['title'])) {
+            http_response_code(BAD_REQUEST);
+            echo json_encode(["message" => "Missing some fields."]);
+            exit();
+        }
+
+        $id = $data['id'];
+        $title = $data['title'];
+        $desc = $data['desc'];
+
+
+
+
+        $skeleton = new PhotoSkeleton(
+            $id,
+            $title,
+            $desc,
+            "",
+            ""
+        );
+
+        $photo = Photo::updatePhoto($skeleton);
+
+
+        http_response_code(CREATED);
+        echo json_encode(
+            ["msg" => "img updated"]
+        );
     }
 
     public function deletePhoto($data)
     {
-        // TODO: Implement logic
+        $id = $data['id'];
+        if (!isset($data['id'])) {
+            http_response_code(BAD_REQUEST);
+            echo json_encode(["message" => "Missing some fields."]);
+            exit();
+        }
+
+        $res = Photo::deletePhoto($id);
+
+        if($res) {
+            echo json_encode(["msg" => "photo has been deleted"]);
+        }
+        else {
+            echo json_encode(["msg" => "photo doesn't exists"]);
+        }
     }
 }

@@ -103,14 +103,14 @@ class Photo implements PhotoI
     {
         global $conn;
 
-        $query = "UPDATE photos SET title = ?, `desc` = ?, url = ?, owner = ? WHERE id = ?";
+        $query = "UPDATE photos SET title = ?, `desc` = ? WHERE id = ?";
         $stmt = $conn->prepare($query);
 
         if (!$stmt) {
             return false;
         }
 
-        $stmt->bind_param("ssssi", $photo->title, $photo->desc, $photo->url, $photo->owner, $photo->id);
+        $stmt->bind_param("ssi", $photo->title, $photo->desc, $photo->id);
 
         $result = $stmt->execute();
         $stmt->close();
