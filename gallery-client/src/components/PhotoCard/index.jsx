@@ -44,13 +44,14 @@ const PhotoCard = ({ id, url, title, desc, handleDeletion, handleAttachTag }) =>
     return (
         <div className='photo-card'>
             <div className='tags'>
+                <button onClick={handleAttachTag}>+</button>
                 {genTags()}
             </div>
             <img src={`${BASE_URL}${url}`} alt={title || "Photo"} />
-            <p>{title}</p>
-            <p>{desc}</p>
+            <p className='title'>{title}</p>
+            <p className='desc'>{desc}</p>
             <button onClick={handleDeletion}>delete</button>
-            <button onClick={handleAttachTag}>attach tag</button>
+
         </div>
     )
 }
