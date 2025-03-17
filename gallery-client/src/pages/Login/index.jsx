@@ -5,7 +5,7 @@ import { request } from '../../utils/remote/requests'
 import { AppContext } from '../../provider/AppProvider'
 const Login = () => {
 
-    const { login, navigate, username } = useContext(AppContext)
+    const { login, navigate } = useContext(AppContext)
     useEffect(() => {
         if (localStorage.getItem("user") != null) {
             login()
@@ -28,7 +28,7 @@ const Login = () => {
         <div className='center page'>
             <div className='flex-column'>
                 <UserInput inputName='username' setState={setInputUsername} />
-                <UserInput inputName='password' setState={setInputPassword} />
+                <UserInput inputName='password' setState={setInputPassword} inputType='password'/>
                 <button className='marign' onClick={submit}>submit</button>
                 <p>don't have an account yet? <span className='signup' onClick={handlelogin}>Signup</span></p>
             </div>

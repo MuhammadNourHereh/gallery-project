@@ -39,8 +39,8 @@ const Signup = () => {
         <UserInput inputName='username' setState={setUsername} />
         <UserInput inputName='firstname' setState={setFirstname} />
         <UserInput inputName='lastname' setState={setLastname} />
-        <UserInput inputName='password' setState={setPassword} />
-        <UserInput inputName='re-password' setState={setRepassword}/>
+        <UserInput inputName='password' setState={setPassword} inputType='password'/>
+        <UserInput inputName='re-password' setState={setRepassword}inputType='password'/>
         <button className='marign' onClick={signup}>signup</button>
         <p>already have an account? <span className='login' onClick={handleLogin}>login</span></p>
       </div>

@@ -23,6 +23,7 @@ const Home = () => {
 
 
   // photo form
+  const [dialogOpen, setDialogOpen] = useState(false)
   const [photoTitle, setPhotoTitle] = useState("")
   const [photoDesc, setPhotoDesc] = useState("")
   const [photoFile, setPhotoFile] = useState("")
@@ -78,7 +79,7 @@ const Home = () => {
 
 
   return (
-    <div>
+    <div className='page'>
 
       <nav>
         <div>
@@ -90,17 +91,21 @@ const Home = () => {
           <button onClick={() => { navigate('/tagslist') }}>tagslists</button>
         </div>
       </nav>
+      <button className="floating-button" onClick={() => setDialogOpen(true)}>+</button>
+
 
       <section className='photos'>
         {genPhotos()}
       </section>
-      <hr />
-      <section>
-        <UserInput inputName="name" setState={setPhotoTitle} />
-        <UserInput inputName="desc" setState={setPhotoDesc} />
-        <input type='file' onChange={handleSetPhotoFile} /><br />
-        <button onClick={uploadPhoto}>upload</button>
-      </section>
+      <dialog open={dialogOpen} className='dialog dialog-overlay'>
+        <section>
+          <button onClick={() => { setDialogOpen(false) }}>X</button>
+          <UserInput inputName="name" setState={setPhotoTitle} />
+          <UserInput inputName="desc" setState={setPhotoDesc} />
+          <input type='file' onChange={handleSetPhotoFile} /><br />
+          <button onClick={uploadPhoto}>upload</button>
+        </section>
+      </dialog>
     </div>
   )
 }

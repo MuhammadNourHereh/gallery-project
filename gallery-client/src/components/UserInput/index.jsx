@@ -1,13 +1,13 @@
 import React from 'react'
 import './style.css'
 
-const UserInput = ({ inputName, setState }) => {
+const UserInput = ({ inputName, setState, inputType = "text" }) => {
     return (
         <div className='flex-column' >
-            <label className='' htmlFor={inputName}>{inputName}:</label>
+            <label htmlFor={inputName}>{inputName}:</label>
             <input
+                type={inputType}
                 id={inputName}
-                className=''
                 name={inputName}
                 placeholder={inputName}
                 onChange={(e) => setState(e.target.value)}
